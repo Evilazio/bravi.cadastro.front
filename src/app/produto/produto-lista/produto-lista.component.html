@@ -1,5 +1,0 @@
-<input class="text-base p-4 rounded-lg" type="text" [(ngModel)]="busca" >
-
-<div *ngFor="let item of ((produtoService.produtos$ | async) | filter : ['username'] : busca)" class="">
-    {{item.username}}
-</div>
