@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FilterPipe } from './pipes/filter/filter.pipe';
+import { InputErrorComponent } from './shared/input-error/input-error.component';
 
 @NgModule({
   declarations: [

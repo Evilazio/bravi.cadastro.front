@@ -1,20 +1,25 @@
-<div class="flex flex-col gap-4">
-    <input class="text-base p-4 rounded-lg bg-slate-100" type="text" [(ngModel)]="busca" placeholder="Buscar pessoa">
+<div class="flex items-center mb-4">
+    <h1 class="text-2xl font-semibold">Lista de pessoas</h1>
+    <a class="ml-auto button" routerLink="/pessoa/novo" type="submit">adicionar</a>
+</div>
+<div class="flex flex-col gap-4 c">
+
+    <input class="" type="text" [(ngModel)]="busca" placeholder="Buscar pessoa">
     
-    <div class="flex flex-col  ">
-        <div class="flex items-center px-4 py-2 mb-2 rounded-lg bg-slate-100" *ngFor="let item of ((pessoaService.pessoas$ | async) | filter : ['username'] : busca)" >
+    <div class="flex flex-col gap-4 ">
+        <div class="flex items-center p-4 rounded-lg bg-slate-100" *ngFor="let item of ((pessoaService.get$ | async) | filter : ['nome', 'id'] : busca)" >
             
             <div class="flex-[0_0_70px]">
-                {{item.userId}}
+                {{item.id}}
             </div>
 
             <div class="">
-                {{item.username}}
+                {{item.nome}}
             </div>
 
             <div class="ml-auto flex gap-2">
-                <a [routerLink]="'/'+item.userId" class="text-sm py-1 px-3 rounded-lg hover:bg-slate-50">ver</a>
-                <button class="text-sm py-1 px-3 rounded-lg hover:bg-slate-50">excluir</button>
+                <a [routerLink]="'/pessoa/'+item.id" class="button">ver</a>
+                <button class="" (click)="excluirPessoa(item.id)">excluir</button>
             </div>
 
         </div>

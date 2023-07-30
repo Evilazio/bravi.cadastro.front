@@ -3,5 +3,34 @@
 @tailwind utilities;
 
 * {
-    @apply outline-blue-600;
+    @apply outline-slate-500 outline-1;
+}
+
+input, select {
+    @apply text-base p-4 rounded-lg bg-slate-100 border-[2px] border-slate-300; 
+    
+    &:disabled{
+        @apply bg-slate-300;
+    }
+}
+
+button, .button {
+    @apply text-sm py-1 px-3 rounded-lg hover:bg-slate-50;
+    &:disabled {
+        @apply opacity-40 pointer-events-none;
+    }
+}
+
+.ng-submitted {
+    input, select {
+        &.ng-invalid {
+            @apply border-red-500 border-dashed outline-red-500;
+        }
+    }
+}
+
+form:not(.ng-submitted) {
+    app-input-error {
+        @apply hidden;
+    }
 }

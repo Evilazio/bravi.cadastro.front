@@ -1,31 +1,64 @@
-<h1 class="text-2xl p-4 font-semibold">Pessoa</h1>
-<div class="flex flex-col gap-2 " *ngIf="pessoa$ | async as pessoa">
-    <form class="flex flex-col gap-2 bg-slate-100 rounded-lg" >
-        <div class="flex flex-col py-4 px-2 rounded-lg">
-            <div class="font-semibold mb-2 px-2">Id</div>
-            <input class="text-base py-2 px-2 rounded-lg " type="text" [(ngModel)]="pessoa.userId" name="userId">
+<div class="flex items-center mb-4">
+    <h1 class="text-2xl font-semibold">Pessoa</h1>
+    <a class="button ml-auto" routerLink="/pessoa">Voltar a lista</a>
+</div>
+<div class="flex flex-col gap-2 ">
+    <form *ngIf="(pessoaEntityAndForm$ | async) as pessoaEntityAndForm"
+        class="flex flex-col gap-4 p-4 bg-slate-100 rounded-lg" [formGroup]="pessoaEntityAndForm.form"
+        (submit)="salvar(pessoaEntityAndForm.oldEntity, pessoaEntityAndForm.form, this.pessoaService);">
+        <div class="flex flex-col rounded-lg">
+            <div class="font-semibold mb-2">Id</div>
+            <input class="" formControlName="id" type="text" name="id">
         </div>
-        
-        <div class="flex flex-col py-4 px-2  rounded-lg">
-            <div class="font-semibold mb-2 px-2">Nome</div>
-            <input class="text-base py-2 px-2 rounded-lg " type="text" [(ngModel)]="pessoa.username" name="username">
+        <div class="flex flex-col  rounded-lg">
+            <div class="font-semibold mb-2">Nome</div>
+            <input class=" " type="text" formControlName="nome" name="nome">
+            <app-input-error [formGroup]="pessoaEntityAndForm.form" controlName="nome"></app-input-error>
         </div>
-        
+
+        <div class="flex justify-end  gap-2">
+            <button *ngIf="pessoaEntityAndForm.oldEntity?.id" class="text-sm py-2 px-3 rounded-lg hover:bg-white"
+                type="button" (click)="excluir(pessoaEntityAndForm.oldEntity, this.pessoaService)">excluir</button>
+            <button class="text-sm py-2 px-3 rounded-lg hover:bg-white" [disabled]="!pessoaEntityAndForm.form.dirty"
+                type="submit">{{ pessoaEntityAndForm.oldEntity?.id ? 'salvar' : 'criar' }}</button>
+        </div>
     </form>
 </div>
 
-<h1 class="text-2xl p-4  font-semibold">Contato</h1>
-<div class="flex flex-col gap-2 " *ngIf="pessoa$ | async as pessoa">
-    <form class="flex flex-col gap-2 bg-slate-100 rounded-lg" *ngFor="let contato of pessoa.contact">
-        <div class="flex items-center py-4 px-2 gap-2 rounded-lg">
-            <input class="flex-[0_0_200px] text-base py-2 px-2 rounded-lg " type="text" [(ngModel)]="contato.contactType" name="userId">
-            <input class="flex-[1_0_200px] text-base py-2 px-2 rounded-lg " type="text" [(ngModel)]="contato.value" name="username">
-            <button class="text-sm py-2 px-3 rounded-lg hover:bg-white">excluir</button>
-        </div>
-    </form>
-</div>
+<ng-container *ngIf="(contatoEntityAndForms$ | async) as contatoEntityAndForms">
+    <ng-container *ngIf="(pessoaEntityAndForm$ | async)?.oldEntity">
 
-<div class="flex justify-end py-4 gap-2">
-    <button class="text-sm py-2 px-3 rounded-lg hover:bg-white">excluir</button>
-    <button class="text-sm py-2 px-3 rounded-lg hover:bg-white">salvar</button>
-</div>
+        <h1 class="text-2xl p-4 mt-4  font-semibold">Contato</h1>
+        <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-2 bg-slate-100 rounded-lg"
+                *ngFor="let contatoEntityAndForm of contatoEntityAndForms">
+                <form [formGroup]="contatoEntityAndForm.form" class="flex flex-wrap gap-4 p-4 bg-slate-100 rounded-lg"
+                    (submit)="salvar(contatoEntityAndForm.oldEntity, contatoEntityAndForm.form, this.contatoService)">
+                    <div class="flex flex-col flex-[0_0_200px]">
+                        <select class="" formControlName="contatoTipoId" name="contatoTipoId">
+                            <option *ngFor="let contatoTipo of (contatoTipoService.get$ | async)"
+                                [value]="contatoTipo.id">
+                                {{ contatoTipo.nome }}</option>
+                        </select>
+                        <app-input-error [formGroup]="contatoEntityAndForm.form"
+                            controlName="contatoTipoId"></app-input-error>
+                    </div>
+                    <div class="flex flex-col flex-[1_0_200px]">
+                        <input class="" type="text" formControlName="valor" name="valor">
+                        <app-input-error [formGroup]="contatoEntityAndForm.form"
+                            controlName="valor"></app-input-error>
+                    </div>
+
+                    <div class="flex gap-4 w-full justify-end items-center">
+                        <button class="text-sm py-2 px-3 rounded-lg hover:bg-white" type="button"
+                            *ngIf="contatoEntityAndForm.oldEntity?.id" (click)="excluir(contatoEntityAndForm.oldEntity, this.contatoService)">excluir</button>
+                        <button class="text-sm py-2 px-3 rounded-lg hover:bg-white"
+                            [disabled]="!contatoEntityAndForm.form.dirty">
+                            {{ contatoEntityAndForm.oldEntity?.id ? 'salvar' : 'criar'}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>
