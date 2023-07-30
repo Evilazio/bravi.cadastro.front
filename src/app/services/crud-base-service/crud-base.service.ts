@@ -17,7 +17,7 @@ export abstract class CrudBaseService<T extends BaseDTO> {
     protected httpCacheService: HttpCacheService
   ) {
     this.refreshTrigger$.subscribe(x => {
-      console.log('REFRESH TRIGGER DISPARADO ' + x.toISOString())
+      // console.log('REFRESH TRIGGER DISPARADO ' + x.toISOString())
     })
   }
 

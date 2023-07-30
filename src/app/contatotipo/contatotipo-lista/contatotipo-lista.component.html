@@ -1,0 +1,45 @@
+<div class="flex items-center mb-4">
+    <h1 class="text-2xl font-semibold">Lista de Tipos de Contato</h1>
+</div>
+<div class="flex flex-col gap-4 c">
+
+    <input class="" type="text" [(ngModel)]="busca" placeholder="Buscar tipo de contato">
+
+    <div class="flex flex-col gap-4 ">
+        <div class="flex items-center p-4 rounded-lg bg-slate-100"
+            *ngFor="let item of ((contatoTipoService.get$ | async) | filter : ['nome', 'id'] : busca)">
+
+            <div class="flex-[0_0_70px]">
+                {{item.id}}
+            </div>
+
+            <div class="">
+                {{item.nome}}
+            </div>
+
+            <div class="ml-auto flex gap-2">
+                <button class="" (click)="excluir(item, contatoTipoService)">excluir</button>
+            </div>
+        </div>
+    </div>
+
+
+    <h1 class="text-2xl p-4 mt-4  font-semibold">Criar Tipo de Contato</h1>
+    <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2 bg-slate-100 rounded-lg">
+            <form [formGroup]="contatoTipoFormGroup" class="flex flex-wrap gap-4 p-4 bg-slate-100 rounded-lg"
+                (submit)="salvar()">
+                <div class="flex flex-col w-full">
+                    <div class="font-semibold mb-2">Nome do novo tipo de contato</div>
+                    <input class="w-full" type="text" formControlName="nome" name="nome" placeholder="ex. LinkedIn">
+                    <app-input-error [formGroup]="contatoTipoFormGroup" controlName="valor"></app-input-error>
+                </div>
+
+                <div class="flex gap-4 w-full justify-end items-center">
+                    <button class="text-sm py-2 px-3 rounded-lg hover:bg-white"
+                        [disabled]="!contatoTipoFormGroup.dirty">criar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

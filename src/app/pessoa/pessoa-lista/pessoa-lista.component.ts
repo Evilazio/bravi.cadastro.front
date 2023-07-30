@@ -30,7 +30,9 @@ export class PessoaListaComponent {
     });
   }
 
-  excluirPessoa(id: string) {
-    this.pessoaService.delete$(id).subscribe();
+  excluirPessoa(entidade: PessoaDTO) {
+    if(entidade?.id && confirm("Deseja realmente deletar " + entidade.nome + '?')) {
+      this.pessoaService.delete$(entidade.id.toString()).subscribe();
+    }
   }
 }
