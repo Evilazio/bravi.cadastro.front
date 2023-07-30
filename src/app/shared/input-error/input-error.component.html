@@ -1,5 +1,5 @@
 <div class="text-red-400">
-    <ng-container *ngIf="formGroup.get(controlName)?.errors as erros">
+    <ng-container *ngIf="formGroup?.get(controlName)?.errors as erros">
         <ng-container *ngIf="formGroup.status">
             <div class="py-1 px-4" *ngIf="erros['required']">Esse campo é obrigatório</div>
             <div class="py-1 px-4" *ngIf="erros['minlength']">Esse campo requer ao menos {{ erros['minlength'].requiredLength }} caracteres</div>

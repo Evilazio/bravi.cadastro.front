@@ -8,11 +8,11 @@
         (submit)="salvar(pessoaEntityAndForm.oldEntity, pessoaEntityAndForm.form, this.pessoaService);">
         <div class="flex flex-col rounded-lg">
             <div class="font-semibold mb-2">Id</div>
-            <input class="" formControlName="id" type="text" name="id">
+            <input class="" formControlName="id" type="text" name="id" placeholder="Novo">
         </div>
         <div class="flex flex-col  rounded-lg">
             <div class="font-semibold mb-2">Nome</div>
-            <input class=" " type="text" formControlName="nome" name="nome">
+            <input class=" " type="text" formControlName="nome" name="nome" placeholder="ex. José da Silva">
             <app-input-error [formGroup]="pessoaEntityAndForm.form" controlName="nome"></app-input-error>
         </div>
 
@@ -35,7 +35,9 @@
                 <form [formGroup]="contatoEntityAndForm.form" class="flex flex-wrap gap-4 p-4 bg-slate-100 rounded-lg"
                     (submit)="salvar(contatoEntityAndForm.oldEntity, contatoEntityAndForm.form, this.contatoService)">
                     <div class="flex flex-col flex-[0_0_200px]">
+                        <div class="font-semibold mb-2">Tipo</div>
                         <select class="" formControlName="contatoTipoId" name="contatoTipoId">
+                            <option disabled [value]="null">Selecionar</option>
                             <option *ngFor="let contatoTipo of (contatoTipoService.get$ | async)"
                                 [value]="contatoTipo.id">
                                 {{ contatoTipo.nome }}</option>
@@ -44,7 +46,8 @@
                             controlName="contatoTipoId"></app-input-error>
                     </div>
                     <div class="flex flex-col flex-[1_0_200px]">
-                        <input class="" type="text" formControlName="valor" name="valor">
+                        <div class="font-semibold mb-2">Informação de contato</div>
+                        <input class="" type="text" formControlName="valor" name="valor" placeholder="ex. 11 9 5446-4959">
                         <app-input-error [formGroup]="contatoEntityAndForm.form"
                             controlName="valor"></app-input-error>
                     </div>

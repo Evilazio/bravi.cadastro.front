@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { BehaviorSubject, shareReplay, switchMap, tap } from 'rxjs';
 import { HttpCacheService } from '../http-cache/http-cache.service';
 import * as jsonpatch from 'fast-json-patch';
 import { BaseDTO } from 'src/app/models/base/baseDTO';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ import { BaseDTO } from 'src/app/models/base/baseDTO';
 export abstract class CrudBaseService<T extends BaseDTO> {
 
   constructor(
-    public API_URL: string,
-    public API_PATH: string,
+    @Optional() public API_URL: string,
+    @Optional() public API_PATH: string,
     protected httpCacheService: HttpCacheService
   ) {
     this.refreshTrigger$.subscribe(x => {
