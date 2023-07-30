@@ -1,7 +1,7 @@
 ![logo da empresa Bravi](https://bravi.com.br/app/uploads/2019/11/cropped-bravi_2211_favicon_AF-150x150.png "Bravi").
 
 
-# [Bravi](https://bravi.com.br/) | Desafio Cadastro 
+# [Bravi](https://bravi.com.br/) | Desafio Cadastro - Front End
 O desafio consiste em criar uma interface web em Angular a fim de ser a camada visual de gerenciamento para uma API em ASP.NET Core. As principais funcionalidades consistem em cadastrar pessoas e seus respectivos meios de contato, e também o tipo de contato disponível.
 
 ```mermaid
